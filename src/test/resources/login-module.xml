@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Login Tests Suite">
+    <test name="Login Tests">
+        <classes>
+            <class name="login.LoginNegativeTests"/>
+            <class name="login.LoginPositiveTests"/>
+        </classes>
+    </test>
+</suite>
