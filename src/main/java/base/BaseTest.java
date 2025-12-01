@@ -1,5 +1,6 @@
 package base;
 
+import driverFactory.DriverFactory;
 import entities.TestConfig;
 import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.WebDriver;
@@ -31,25 +32,11 @@ public class BaseTest {
     @Parameters({"env","url","browser","implicitWait"})
     @BeforeMethod
     public void SetupBrowser(@Optional String env, @Optional String url,  @Optional String browser, @Optional String implicitWait){
-        ChromeOptions options = new ChromeOptions();
-        Map<String, Object> prefs = new HashMap<>();
-        // Turn off password manager / “save password” UI
-        prefs.put("credentials_enable_service", false);
-        prefs.put("profile.password_manager_enabled", false);
-        // Turn off “Change your password – data breach” popup
-        // (Chrome leak-detection feature)
-        prefs.put("profile.password_manager_leak_detection", false);
-        // some Chrome versions use this key:
-        prefs.put("password_leak_detection_enabled", false);
-        options.setExperimentalOption("prefs", prefs);
-        // optional: remove “Chrome is being controlled by automated test software” banner
-        options.setExperimentalOption("excludeSwitches",
-                new String[]{"enable-automation"});
-        WebDriver driver = new ChromeDriver(options);
+        WebDriver driver = new DriverFactory().createInstance(BaseTest.config.browser());
         threadDriverMap.put(Thread.currentThread().getId(), driver);
-        driver.get(url);
+        driver.get(BaseTest.config.url());
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(Integer.parseInt(implicitWait)));
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(BaseTest.config.implicitWait()));
     }
 
     @AfterMethod
