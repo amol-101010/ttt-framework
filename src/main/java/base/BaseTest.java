@@ -1,18 +1,30 @@
 package base;
 
+import entities.TestConfig;
+import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class BaseTest {
     public static Map<Long, WebDriver> threadDriverMap = new ConcurrentHashMap<Long, WebDriver>();
+    public static TestConfig config;
+
+    @BeforeSuite
+    public void setupSuite() throws IOException {
+        Properties properties = new Properties();
+        properties.load(new FileReader(("src/test/resources/config/test.properties")));
+        config = ConfigFactory.create(TestConfig.class,properties);
+    }
+
 
     @Parameters({"env","url","browser","implicitWait"})
     @BeforeMethod

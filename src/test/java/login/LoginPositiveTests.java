@@ -13,7 +13,7 @@ public class LoginPositiveTests extends BaseTest {
     public void TC_LOGIN_001_ValidLogin() {
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.doLogin("standard_user","secret_sauce");
-        Assert.assertTrue(  driver.findElement(By.id("react-burger-menu-btn")).isDisplayed(),"User Logged in successfully.");
+        Assert.assertTrue(  getDriver().findElement(By.id("react-burger-menu-btn")).isDisplayed(),"User Logged in successfully.");
     }
 
 
