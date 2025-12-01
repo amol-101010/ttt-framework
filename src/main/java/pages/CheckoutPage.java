@@ -1,9 +1,10 @@
 package pages;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class CheckoutPage {
+public class CheckoutPage extends BasePage {
     WebDriver driver;
 
     // Locators
@@ -13,19 +14,20 @@ public class CheckoutPage {
     By btnContinue = By.id("continue");
 
     public CheckoutPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 
     // Method 1: Fill checkout information
     public void fillCheckoutInfo(String firstName, String lastName, String postalCode) {
-        this.driver.findElement(txtFirstName).sendKeys(firstName);
-        this.driver.findElement(txtLastName).sendKeys(lastName);
-        this.driver.findElement(txtPostalCode).sendKeys(postalCode);
+        clearTextAndType(txtFirstName, firstName);
+        clearTextAndType(txtLastName, lastName);
+        clearTextAndType(txtPostalCode, postalCode);
     }
 
     // Method 2: Click continue button
     public CheckoutSummaryPage clickContinue() {
-        this.driver.findElement(btnContinue).click();
+        clickElement(btnContinue);
         return new CheckoutSummaryPage(this.driver);
     }
 

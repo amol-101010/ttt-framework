@@ -1,9 +1,10 @@
 package pages;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class CheckoutSummaryPage {
+public class CheckoutSummaryPage extends BasePage {
     WebDriver driver;
 
     // Locators
@@ -14,6 +15,7 @@ public class CheckoutSummaryPage {
     By btnFinish = By.id("finish");
 
     public CheckoutSummaryPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 
@@ -29,7 +31,7 @@ public class CheckoutSummaryPage {
 
     // Method 3: Click finish button
     public CheckoutCompletePage clickFinish() {
-        this.driver.findElement(btnFinish).click();
+        clickElement(btnFinish);
         return new CheckoutCompletePage(this.driver);
     }
 

@@ -1,9 +1,10 @@
 package pages;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class LoginPage {
+public class LoginPage extends BasePage {
     WebDriver driver;
 
     By txtUsername = By.id("user-name");
@@ -11,15 +12,14 @@ public class LoginPage {
     By btnLogin = By.id("login-button");
 
     public LoginPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 
-    public void doLogin( String username, String password){
-        this.driver.findElement(txtUsername).click();
-        this.driver.findElement(txtUsername).sendKeys(username);
-        this.driver.findElement(txtPassword).click();
-        this.driver.findElement(txtPassword).sendKeys(password);
-        this.driver.findElement(btnLogin).click();
+    public void doLogin( String username, String password) {
+        clearTextAndType(txtUsername, username);
+        clearTextAndType(txtPassword,password);
+        clickElement(btnLogin);
     }
 
 

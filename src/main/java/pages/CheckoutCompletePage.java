@@ -1,9 +1,10 @@
 package pages;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class CheckoutCompletePage {
+public class CheckoutCompletePage extends BasePage {
     WebDriver driver;
 
     // Locators
@@ -12,6 +13,7 @@ public class CheckoutCompletePage {
     By backHomeButton = By.id("back-to-products");
 
     public CheckoutCompletePage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 
@@ -33,7 +35,7 @@ public class CheckoutCompletePage {
 
     // Method 4: Click back to products button
     public InventoryPage clickBackToProducts() {
-        this.driver.findElement(backHomeButton).click();
+        clickElement(backHomeButton);
         return new InventoryPage(this.driver);
     }
 }

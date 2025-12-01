@@ -1,9 +1,14 @@
 package pages;
 
+import base.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
-public class InventoryPage {
+import java.util.List;
+
+public class InventoryPage extends BasePage {
     WebDriver driver;
 
     // Locators
@@ -13,17 +18,18 @@ public class InventoryPage {
     By inventoryContainer = By.className("inventory_container");
 
     public InventoryPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 
     // Method 1: Add product to cart by product name
     public void addProductToCart(String productName) {
-        java.util.List<org.openqa.selenium.WebElement> products =
+       List<WebElement> products =
                 this.driver.findElements(productList);
 
-        for (org.openqa.selenium.WebElement product : products) {
+        for (WebElement product : products) {
             if (product.getText().contains(productName)) {
-                org.openqa.selenium.WebElement addButton =
+                WebElement addButton =
                         product.findElement(By.xpath(".//button[contains(text(), 'Add to cart')]"));
                 addButton.click();
                 break;
@@ -35,14 +41,14 @@ public class InventoryPage {
     public String getCartBadgeCount() {
         try {
             return this.driver.findElement(cartBadge).getText();
-        } catch (org.openqa.selenium.NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             return "0"; // Cart is empty if badge not present
         }
     }
 
     // Method 3: Navigate to cart
     public CartPage goToCart() {
-        this.driver.findElement(cartLink).click();
+        clickElement(cartLink);
         return new CartPage(this.driver);
     }
 

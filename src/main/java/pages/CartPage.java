@@ -1,9 +1,10 @@
 package pages;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class CartPage {
+public class CartPage extends BasePage {
     WebDriver driver;
 
     // Locators
@@ -13,6 +14,7 @@ public class CartPage {
     By cartContainer = By.className("cart_list");
 
     public CartPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 
@@ -38,7 +40,7 @@ public class CartPage {
 
     // Method 3: Click checkout button
     public CheckoutPage proceedToCheckout() {
-        this.driver.findElement(checkoutButton).click();
+        clickElement(checkoutButton);
         return new CheckoutPage(this.driver);
     }
 
