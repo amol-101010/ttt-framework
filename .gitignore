@@ -33,6 +33,6 @@ build/
 
 ### VS Code ###
 .vscode/
-
+.settings.local.json
 ### Mac OS ###
 .DS_Store
