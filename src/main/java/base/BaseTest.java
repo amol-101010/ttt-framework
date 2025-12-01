@@ -12,13 +12,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class BaseTest {
-    protected WebDriver driver;
     public static Map<Long, WebDriver> threadDriverMap = new ConcurrentHashMap<Long, WebDriver>();
 
     @Parameters({"env","url","browser","implicitWait"})
     @BeforeMethod
     public void SetupBrowser(@Optional String env, @Optional String url,  @Optional String browser, @Optional String implicitWait){
-        driver = new ChromeDriver();
+        WebDriver driver = new ChromeDriver();
         threadDriverMap.put(Thread.currentThread().getId(), driver);
         driver.get(url);
         driver.manage().window().maximize();
