@@ -4,11 +4,7 @@ import driverFactory.DriverFactory;
 import entities.TestConfig;
 import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.*;
-
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.Duration;
@@ -21,7 +17,6 @@ public class BaseTest {
 
     public static Map<Long, WebDriver> threadDriverMap = new ConcurrentHashMap<Long, WebDriver>();
     public static TestConfig config;
-
     @BeforeSuite
     public void suiteSetup() throws IOException {
         Properties props = new Properties();
@@ -37,6 +32,7 @@ public class BaseTest {
         driver.get(BaseTest.config.url());
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(BaseTest.config.implicitWait()));
+
     }
 
     @AfterMethod
